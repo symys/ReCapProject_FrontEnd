@@ -15,4 +15,5 @@ export class RentalService {
   getRentals() : Observable<RentalResponseModel>{
     return this.httpClient.get<RentalResponseModel>(this.apiUrl);
   }
-} 
+}  
+

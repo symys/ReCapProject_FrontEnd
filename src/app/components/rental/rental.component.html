@@ -1,0 +1,25 @@
+<p>rental works!</p>
+
+<div *ngIf ="dataLoaded == false" class="spinner-border text-success" role="status">
+    <span class="visually-hidden">Loading...</span>
+</div>
+<table *ngIf ="dataLoaded == true" class="table">
+    <thead>
+        <tr>
+            <th>Rent Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Company Name</th>
+            <th>Rent Date</th>
+            <th>Return Date</th>
+        </tr>
+    </thead>
+    <tr *ngFor = "let rental of rentals">
+        <td>{{rental.rentId}}</td>
+        <td>{{rental.firstName}}</td>
+        <td>{{rental.lastName}}</td>
+        <td>{{rental.companyName}}</td>
+        <td>{{rental.rentDate}}</td>
+        <td>{{rental.returnDate}}</td>
+    </tr>
+</table>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Car } from 'src/app/models/car';
 import { CarDetail } from 'src/app/models/carDetail';
 import { CarImage } from 'src/app/models/carImage';
+import { CarDetailService } from 'src/app/services/car-detail.service';
 import { CarImageService } from 'src/app/services/car-image.service';
 import { CarService } from 'src/app/services/car.service';
 import { environment } from 'src/environments/environment';
@@ -15,10 +17,12 @@ export class CarDetailComponent implements OnInit {
 
   carImages!: CarImage[];
   cars: CarDetail;
+  carDetails :Car[]
   dataLoaded: boolean = false;
 
   constructor(private carImageService: CarImageService, 
-    private carService: CarService, private activatedRoute: ActivatedRoute) { }
+    private carService: CarService, private activatedRoute: ActivatedRoute,
+    private carDetailService:CarDetailService) { }
 
   ngOnInit(): void {
     console.log(this.cars);
@@ -52,5 +56,20 @@ export class CarDetailComponent implements OnInit {
     }
     return environment.staticFilesUrl + "\\images\\logo.jpg";
   }
+
+
+  getCarDetailsByBrandId(brandId:number){
+    this.carDetailService.getCarDetailsByBrandId(brandId).subscribe(response=>{
+      this.carDetails=response.data
+      this.dataLoaded=true;
+    })
+    }
+
+    getCarDetailsByColorId(colorId:number){
+      this.carDetailService.getCarDetailsByColorId(colorId).subscribe(response=>{
+        this.carDetails=response.data
+        this.dataLoaded=true;
+      })
+      }
 }
 

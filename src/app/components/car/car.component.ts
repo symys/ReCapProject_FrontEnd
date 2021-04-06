@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Car } from 'src/app/models/car';
 import { CarDetail } from 'src/app/models/carDetail';
 import { SingleResponseModel } from 'src/app/models/singleResponseModel';
 import { CarService } from 'src/app/services/car.service';
+import { CartService } from 'src/app/services/cart.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -16,9 +18,13 @@ import { environment } from 'src/environments/environment';
 export class CarComponent implements OnInit {
   cars: Car[] = [];
   dataLoaded = false;
+  filterText= "";
+  filterColorText="";
+  filterBrandText="";
 
   constructor(private carService : CarService, 
-    private activatedRoute:ActivatedRoute, private httpClient:HttpClient) { }
+    private activatedRoute:ActivatedRoute, private httpClient:HttpClient,
+    private toastrService:ToastrService, private cartService:CartService) { }
 
   ngOnInit(): void {
     console.log(this.cars)
@@ -59,4 +65,11 @@ export class CarComponent implements OnInit {
     let newPath = environment.apiUrl+"/cars/getbyid?carId="+carId;
     return this.httpClient.get<SingleResponseModel<CarDetail>>(newPath);
   }
+
+  addToCart(car:Car){
+    this.toastrService.success("Sepete Eklendi",car.brandName)
+    this.cartService.addToCart(car);
+  }
+
+ 
 }

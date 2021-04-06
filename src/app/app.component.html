@@ -1,32 +1,13 @@
 <div class="container">
-    <app-navi></app-navi> 
+  <app-navi></app-navi>
   <div class="row">
-      <div class="col-md-3">
-        <h6>Renkler</h6>
-        <app-color></app-color>
-        <h6>Markalar</h6>
-        <app-brand></app-brand>
-      </div>
-
-      <div class="col-md-9">
-        <router-outlet></router-outlet>
-      </div>
-      
-
-      <!-- <div class="col-md-3">
-        <app-rental></app-rental>
-      </div>  -->
-      
-     
-      
-
-      
-
-      <!-- <div class="col-md-3">
-        <app-car-detail></app-car-detail>
-      </div> -->
-
+    <div class="col-md-2">
+      <app-brand></app-brand>
+      <br />
+      <app-color></app-color>
+    </div>
+    <div class="col-md-10">
+      <router-outlet></router-outlet>>
+    </div>
   </div>
-  
-
 </div>

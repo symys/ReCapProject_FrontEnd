@@ -1,43 +1,94 @@
-<!-- <img [src]= setImage()
+ <!-- <img  src="{{imageBasePath}}{{cars.imagePath}}"
      class=""
      style="height: 100%; width: 100%; object-fit: contain"
 />  -->
 
-
 <div class="row">
-    <div >
-      <img [src]= setImage()
-       class=""
-          style="height: 100%; width: 100%; object-fit: contain"
-          />
-          <br><br>
-       <table class="table table-dark table-striped">
-         <thead>
-           <tr>
-             <th scope="col">#</th>
-             <th scope="col">Marka</th>
-             <th scope="col">Renk</th>
-             <th scope="col">Açıklama</th>
-             <th scope="col">Günlük Fiyat: </th>
-             <th></th>
-           </tr>
-         </thead>
-         <tbody>
-           <tr >
-             <th scope="row">{{cars.carId}}</th>
-             <td>{{cars.brandName}}</td>
-             <td>{{cars.colorName}}</td>
-             <td>{{cars.description}}</td>
-             <td>{{cars.dailyPrice}} ₺</td>
-             <td>    
-             <div class="d-grid gap-1 col-4 mx-auto">
-               <button routerLink="/cars/rental/{{cars.carId}}" class="btn btn-warning" type="button">Kirala</button>
-             </div></td>
-           </tr>
-         </tbody>
-       </table>
- 
- 
-     </div>
-     </div>
-     <br>
+  <div>
+    <!-- <img  src="{{imageBasePath}}{{cars.imagePath}}" 
+    class="rounded mx-auto d-block" alt="thumbnail" width="800" height="400"><br><br> -->
+
+    <!-- <div
+      *ngFor="let image of cars.carImages; let i = index"
+      [ngClass]="getSliderClass(i)"
+    >
+      <img
+        src="{{ imageBasePath }}{{ image.imagePath }}"
+        class="d-block"
+        width="100%"
+        height="225px"
+        alt="..."
+      />
+    </div> -->
+
+    <div class="card-body" >
+      <div *ngIf="images" class="col-md-7">
+        <div id="carouselExampleControls" *ngIf="images.length !== 0" style="width: auto" class="carousel slide" data-bs-ride="carousel">
+          <div  class="carousel-inner">
+            <div  [class]="setImageClass(image)" *ngFor="let image of images">
+              <img [src]="
+               imageBasePath + image
+                   
+                " class="d-block w-100" alt="..." />
+            </div>
+
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
+        <div id="carouselExampleSlidesOnly" *ngIf="images.length === 0" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img [src]="imageBasePath + default" class="d-block w-100" alt="...">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+
+      <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Marka</th>
+            <th scope="col">Renk</th>
+            <th scope="col">Açıklama</th>
+            <th scope="col">Günlük Fiyat:</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">{{ car?.carId }}</th>
+            <td>{{ car?.brandName }}</td>
+            <td>{{ car?.colorName }}</td>
+            <td>{{ car?.description }}</td>
+            <td>{{ car?.dailyPrice }} ₺</td>
+            <td>
+              <div class="d-grid gap-1 col-4 mx-auto">
+                <button
+                  routerLink="/cars/rental/{{car?.carId}}"
+                  class="btn btn-warning"
+                  type="button"
+                >
+                  Kirala
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <br />
+</div>

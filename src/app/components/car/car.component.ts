@@ -27,7 +27,6 @@ export class CarComponent implements OnInit {
     private toastrService:ToastrService, private cartService:CartService) { }
 
   ngOnInit(): void {
-    console.log(this.cars)
     this.activatedRoute.params.subscribe(params=>{
       if(params["brandId"]){
         this.getCarsByBrandId(params["brandId"])
@@ -62,7 +61,7 @@ export class CarComponent implements OnInit {
   }
 
   getCarDetailsById(carId:number):Observable<SingleResponseModel<CarDetail>>{
-    let newPath = environment.apiUrl+"/cars/getbyid?carId="+carId;
+    let newPath = this.carService.apiUrl+"/cars/getbyid?carId="+carId;
     return this.httpClient.get<SingleResponseModel<CarDetail>>(newPath);
   }
 

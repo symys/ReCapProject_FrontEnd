@@ -12,7 +12,6 @@ import { ColorComponent } from './components/color/color.component';
 import { NaviComponent } from './components/navi/navi.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { RentalComponent } from './components/rental/rental.component';
-import { CarDetailComponent } from './components/car-detail/car-detail.component';
 import { VatAddedPipe } from './pipes/vat-added.pipe';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CarFilterPipe } from './pipes/car-filter.pipe';
@@ -21,9 +20,15 @@ import { ColorFilterPipe } from './pipes/color-filter.pipe';
 
 import{ToastrModule} from "ngx-toastr";
 // import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
-import { PaymentComponent } from './components/payment/payment.component';
 import { DatePipe } from '@angular/common';
 import { OneCarDetailComponent } from './components/one-car-detail/one-car-detail.component';
+import { CarAddComponent } from './components/car-add/car-add.component';
+import { BrandAddComponent } from './components/brand-add/brand-add.component';
+import { ColorAddComponent } from './components/color-add/color-add.component';
+import { CarDetailComponent } from './components/car-detail/car-detail.component';
+import {PaymentComponent} from './components/payment/payment.component';
+import { CarUpdateComponent } from './components/car-update/car-update.component';
+// import {CarImageComponent} from './components/car-image/car-image.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +47,11 @@ import { OneCarDetailComponent } from './components/one-car-detail/one-car-detai
     // CartSummaryComponent,
     PaymentComponent,
     OneCarDetailComponent,
+    CarAddComponent,
+    BrandAddComponent,
+    ColorAddComponent,
+    CarUpdateComponent,
+    // CarImageComponent,
     
 
   ],
@@ -50,8 +60,8 @@ import { OneCarDetailComponent } from './components/one-car-detail/one-car-detai
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot({
       positionClass:"toast-bottom-right"
     })

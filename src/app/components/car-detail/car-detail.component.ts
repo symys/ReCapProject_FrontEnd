@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Car } from 'src/app/models/car';
+import { CarDetailAndImagesDto } from 'src/app/models/carAndImagesDto';
 import { CarDetail } from 'src/app/models/carDetail';
 import { CarImage } from 'src/app/models/carImage';
 import { CarDetailService } from 'src/app/services/car-detail.service';
@@ -15,61 +16,89 @@ import { environment } from 'src/environments/environment';
 })
 export class CarDetailComponent implements OnInit {
 
-  carImages!: CarImage[];
-  cars: CarDetail;
-  carDetails :Car[]
-  dataLoaded: boolean = false;
-
+  
   constructor(private carImageService: CarImageService, 
     private carService: CarService, private activatedRoute: ActivatedRoute,
     private carDetailService:CarDetailService) { }
 
+  // carImages!: CarImage[];
+  cars: CarDetail[];
+  car:CarDetail;
+  images:string[]
+  // carDetails :Car[]
+  dataLoaded: boolean = false;
+  imageBasePath="https://localhost:44322/";
+  default="images/default.png"
+
+
   ngOnInit(): void {
-    console.log(this.cars);
-    console.log(this.carImages);
+    // console.log(this.cars);
+    // console.log(this.carImages);
     this.activatedRoute.params.subscribe(params => {
-      this.getCarDetailsById(params["carId"]);
-      this.getCarImagesByCarId(params["carId"]);
-    })
+      if (params["carId"]){
+      this.getCarDetailsByCarId(params["carId"]);
+      // this.getCarImagesByCarId(params["carId"]);
+      }
+    });
   }
 
-  getCarDetailsById(carId:number) {
-    this.carService.getCarDetailsById(carId).subscribe(response => {
+  getCarDetailsByCarId(carId:number) {
+    this.carDetailService.getCarDetailsByCarId(carId).subscribe(response => {
       this.cars = response.data;
+      this.car = response.data[0];
+      this.images = this.car.imagePath;
+      console.log(this.cars)
       this.dataLoaded = response.success;
     })
   }
 
-  getCarImagesByCarId(imageId: number) {
-    this.carImageService.getCarImagesByCarId(imageId).subscribe(resp => {
-      this.carImages = resp.data;
-    })
+  // getCarImagesByCarId(carId: number) {
+  //   this.carImageService.getCarImagesByCarId(carId).subscribe(resp => {
+  //     this.carImages = resp.data;
+  //   })
+  // }
+  
+  setImageClass(imagePath:string){
+    console.log(this.images)
+    if(imagePath === this.images[0]){
+      return "carousel-item active"
+    }else{
+      return "carousel-item"
+    }
   }
 
-  setImage() {
+  // getSliderClass(index: number) {
+  //   if (index == 0) {
+  //     return 'carousel-item active';
+  //   } else {
+  //     return 'carousel-item';
+  //   }
+  // }
 
-    for (let i = 0; i < this.carImages.length; i++) {
-      const carImage = this.carImages[i];
-      if (carImage.imagePath) {
-        return environment.staticFilesUrl + carImage.imagePath;
-      }
-    }
-    return environment.staticFilesUrl + "\\images\\logo.jpg";
-  }
+  // setImage() {
+
+  //   for (let i = 0; i < this.carImages.length; i++) {
+  //     const carImage = this.carImages[i];
+  //     if (carImage.imagePath) {
+  //       return environment.staticFilesUrl + carImage.imagePath;
+  //     }
+  //   }
+  //   return environment.staticFilesUrl + "\\images\\logo.jpg";
+  // }
 
 
-  getCarDetailsByBrandId(brandId:number){
-    this.carDetailService.getCarDetailsByBrandId(brandId).subscribe(response=>{
-      this.carDetails=response.data
-      this.dataLoaded=true;
-    })
-    }
+  // getCarDetailsByBrandId(brandId:number){
+  //   this.carDetailService.getCarDetailsByBrandId(brandId).subscribe(response=>{
+  //     this.cars=response.data
+  //     this.dataLoaded=true;
+  //   })
+  //   }
 
-    getCarDetailsByColorId(colorId:number){
-      this.carDetailService.getCarDetailsByColorId(colorId).subscribe(response=>{
-        this.carDetails=response.data
-        this.dataLoaded=true;
-      })
-      }
+  //   getCarDetailsByColorId(colorId:number){
+  //     this.carDetailService.getCarDetailsByColorId(colorId).subscribe(response=>{
+  //       this.cars=response.data
+  //       this.dataLoaded=true;
+  //     })
+  //     }
 }
 
